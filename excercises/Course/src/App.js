@@ -1,3 +1,5 @@
+import Course from "./components/Course";
+
 const App = () => {
   const courses = [
     {
@@ -44,68 +46,6 @@ const App = () => {
     },
   ];
   return <Course courses={courses} />;
-};
-
-const Course = ({ courses }) => {
-  console.log("ok", courses);
-  return (
-    <>
-      <h1>Web Development Curriculum</h1>
-      {courses.map((course) => (
-        <div key={course.id}>
-          <Header course={course} />
-
-          <Content coursekey={course.id} parts={course.parts} />
-
-          <Total coursekey={course.id} parts={course.parts} />
-        </div>
-      ))}
-    </>
-  );
-};
-
-const Header = (props) => {
-  console.log("props in header", props);
-  return (
-    <>
-      <h2>{props.course.name}</h2>
-    </>
-  );
-};
-
-const Content = ({ parts, coursekey }) => {
-  console.log("props in Content", parts);
-
-  return (
-    <>
-      {parts.map((part) => (
-        <Part key={part.id} part={part.name} exercises={part.exercises} />
-      ))}
-    </>
-  );
-};
-
-const Part = ({ part, exercises }) => {
-  return (
-    <>
-      <p>
-        {part} {exercises}
-      </p>
-    </>
-  );
-};
-
-const Total = ({ parts, coursekey }) => {
-  const sum = parts.reduce((partialSum, current) => {
-    return partialSum + current.exercises;
-  }, 0);
-  return (
-    <>
-      <p>
-        <b>total of {sum} exercises</b>
-      </p>
-    </>
-  );
 };
 
 export default App;
