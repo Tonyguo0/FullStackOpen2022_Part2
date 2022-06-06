@@ -1,5 +1,51 @@
 import { useState } from "react";
 
+const Filter = ({ newFilter, Change }) => {
+  return (
+    <div>
+      filter shown with <input value={newFilter} onChange={Change} />
+    </div>
+  );
+};
+
+const PersonForm = ({ Name, PN, ChangeName, ChangePN, handleButton }) => {
+  return (
+    <form>
+      <div>
+        name: <input value={Name} onChange={ChangeName} />
+      </div>
+      <div>
+        number <input value={PN} onChange={ChangePN} />
+      </div>
+      <div>
+        <button onClick={handleButton} type="submit">
+          add
+        </button>
+      </div>
+    </form>
+  );
+};
+
+const Persons = ({ Filter, List }) => {
+  const filteredpersons =
+    Filter === ""
+      ? List
+      : List.filter((person) =>
+          person.name.toLowerCase().includes(Filter.toLowerCase())
+        );
+  return (
+    <div>
+      {filteredpersons.map((person) => {
+        return (
+          <div key={person.name}>
+            {person.name} {person.number}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: "Arto Hellas", number: "040-123456", id: 1 },
@@ -36,44 +82,22 @@ const App = () => {
     setNewFilter(event.target.value);
   };
 
-  const filteredpersons =
-    newFilter === ""
-      ? persons
-      : persons.filter((person) =>
-          person.name.toLowerCase().includes(newFilter.toLowerCase())
-        );
-
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with{" "}
-        <input value={newFilter} onChange={handleOnChangeFilter} />
-      </div>
+      <Filter newFilter={newFilter} Change={handleOnChangeFilter} />
       <h2>add a new</h2>
-      <form>
-        <div>
-          name: <input value={newName} onChange={handleOnChangeName} />
-        </div>
-        <div>
-          number <input value={newPN} onChange={handleOnChangePN} />
-        </div>
-        <div>
-          <button onClick={handleAddButton} type="submit">
-            add
-          </button>
-        </div>
-      </form>
+
+      <PersonForm
+        Name={newName}
+        PN={newPN}
+        ChangeName={handleOnChangeName}
+        ChangePN={handleOnChangePN}
+        handleButton={handleAddButton}
+      />
+
       <h2>Numbers</h2>
-      <div>
-        {filteredpersons.map((person) => {
-          return (
-            <div key={person.id}>
-              {person.name} {person.number}
-            </div>
-          );
-        })}
-      </div>
+      <Persons Filter={newFilter} List={persons} />
     </div>
   );
 };
