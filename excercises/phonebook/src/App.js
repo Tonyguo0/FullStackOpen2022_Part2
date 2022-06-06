@@ -6,6 +6,11 @@ const App = () => {
 
   const handleAddButton = (event) => {
     event.preventDefault();
+    // compare person's name existing in the array with newName if newName already in persons array send out alert ${newName} is already added to phone book
+    if (persons.find((person) => person.name === newName)) {
+      alert(`${newName} is already added to phone book`);
+      return;
+    }
     const tempObj = { name: newName };
     setPersons(persons.concat(tempObj));
     setNewName("");
