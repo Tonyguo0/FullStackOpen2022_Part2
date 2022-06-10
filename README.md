@@ -13,7 +13,7 @@
 - [x] exercise 2.10
 - [x] exercise 2.11
 - [x] exercise 2.12
-- [ ] exercise 2.13
+- [x] exercise 2.13
 - [ ] exercise 2.14
 - [ ] exercise 2.15
 - [ ] exercise 2.16
