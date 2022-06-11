@@ -22,3 +22,6 @@
 - [ ] exercise 2.19
 - [ ] exercise 2.20
 
+## Set-up
+# .env
+- REACT_APP_API_KEY=openweather app api key
