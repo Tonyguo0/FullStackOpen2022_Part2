@@ -5,10 +5,9 @@ import axios from "axios";
 // https://api.openweathermap.org/data/2.5/weather?q={city name},{country code}&appid={API key}
 const api_key = process.env.REACT_APP_API_KEY;
 
-const Countries = ({ countries, weather, setWeather }) => {
+const Countries = ({ countries }) => {
   const [countrynametoshow, setCountryNameToShow] = useState("");
   const [showcountry, setShowCountry] = useState(false);
-  // const [countrynow, setCountryNow] = useState([]);
 
   if (countries.length > 10) {
     if (showcountry === true) {
@@ -23,11 +22,7 @@ const Countries = ({ countries, weather, setWeather }) => {
     });
     return showcountry === true ? (
       <div>
-        <Country
-          country={countrytoshow[0]}
-          weather={weather}
-          setWeather={setWeather}
-        />
+        <Country country={countrytoshow[0]} />
       </div>
     ) : (
       countries.map((country) => {
@@ -51,41 +46,47 @@ const Countries = ({ countries, weather, setWeather }) => {
       setShowCountry(false);
     }
     const country = countries[0];
-    // setCountryNow(countries[0]);
-    return (
-      <Country country={country} weather={weather} setWeather={setWeather} />
-    );
+    return <Country country={country} />;
   } else {
     return <div>No country found, please check the server</div>;
   }
 };
 
-const Country = ({ country, weather, setWeather }) => {
-  // setWeather([{ hello: "boi" }]);
-  console.log("weather:", weather);
-  console.log("country", country.cca2);
+const Country = ({ country }) => {
+  const [weather, setWeather] = useState({});
+  const [weatherstate, setWeatherState] = useState({});
+  const [data_url, setData_Url] = useState("");
+  const [error, setError] = useState("");
 
-  const data_url = `https://api.openweathermap.org/data/2.5/weather?q=${country.capital[0]},${country.cca2}&appid=${api_key}&units=metric`;
-  // console.log("weather:", weather);
-
+  // getting the data from openweathermap api based on the url
   useEffect(() => {
-    console.log("hello");
+    // console.log(data_url);
     axios.get(data_url).then((response) => {
-      console.log("response:", response);
+      // console.log("main:", response.data.main);
+      // console.log("weather:", response.data);
       setWeather(response.data);
     });
-    console.log("weather:", weather);
-  });
+  }, [data_url]);
 
-  // axios
-  //     .get(`https://api.openweathermap.org/data/2.5/weather?q=${country.capital[0]},${country.cca2}&appid=${api_key}&units=metric`
+  // setting the url to a value based on the country that's set to
+  useEffect(() => {
+    setData_Url(
+      `https://api.openweathermap.org/data/2.5/weather?q=${country.capital[0]},${country.cca2}&appid=${api_key}&units=metric`
+    );
+  }, [country]);
 
-  //     )
-  //     .then((response) => {
-  //       console.log("response:", response);
-  //       setWeather(response.data);
-  //     });
-
+  // check for if weather is undefined
+  useEffect(() => {
+    if (weather.weather && weather.main && weather.wind) {
+      setWeatherState({
+        weather: weather.weather,
+        wind: weather.wind,
+        main: weather.main,
+      });
+    } else {
+      setError(`there was an error: weather object undefined `);
+    }
+  }, [weather]);
   return (
     <div>
       <h1>{country.name.common}</h1>
@@ -110,16 +111,19 @@ const Country = ({ country, weather, setWeather }) => {
           />
         </div>
       </div>
-
-      <div>
-        <h2>Weather in {country.capital[0]}</h2>
-        <p>temperature {weather.main.temp} Celcius</p>
-        <img
-          src={`http://openweathermap.org/img/wn/${weather.weather.icon}@2x.png`}
-          alt={weather.weather.description}
-        />
-        <p>wind {weather.wind.speed} m/s</p>
-      </div>
+      {weatherstate.weather && weatherstate.wind && weatherstate.main ? (
+        <div>
+          <h2>Weather in {country.capital[0]}</h2>
+          <p>temperature {weather.main.temp} Celcius</p>
+          <img
+            src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+            alt={weather.weather[0].description}
+          />
+          <p>wind {weather.wind.speed} m/s</p>
+        </div>
+      ) : (
+        error
+      )}
     </div>
   );
 };
@@ -128,19 +132,18 @@ const App = () => {
   const [countries, setCountries] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredcountry, setFilteredCountry] = useState([]);
-  const [weather, setWeather] = useState([]);
 
   useEffect(() => {
-    // axios.get("https://restcountries.com/v3.1/all").then((response) => {
-    //   setCountries(response.data);
-    //   setFilteredCountry(response.data);
-    // });
-
-    axios.get("http://localhost:3001/countries").then((response) => {
+    axios.get("https://restcountries.com/v3.1/all").then((response) => {
       setCountries(response.data);
       setFilteredCountry(response.data);
     });
-    console.log("countries:", countries);
+
+    // axios.get("http://localhost:3001/countries").then((response) => {
+    //   setCountries(response.data);
+    //   setFilteredCountry(response.data);
+    // });
+    // console.log("countries:", countries);
   }, []);
   // console.log("countries:", countries);
 
@@ -156,7 +159,7 @@ const App = () => {
               .toLowerCase()
               .includes(event.target.value.toLowerCase());
           });
-    console.log("filteredcountries", filteredcountries);
+    // console.log("filteredcountries", filteredcountries);
     setFilteredCountry(filteredcountries);
   };
   return (
@@ -164,11 +167,7 @@ const App = () => {
       <div>
         find countries <input value={search} onChange={handleOnSearchCountry} />
         {/* {console.log(countries)} */}
-        <Countries
-          countries={filteredcountry}
-          weather={weather}
-          setWeather={setWeather}
-        />
+        <Countries countries={filteredcountry} />
       </div>
     </div>
   );
