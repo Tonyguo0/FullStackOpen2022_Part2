@@ -4,7 +4,7 @@
       "id": 1,
       "content": "HTML is easy",
       "date": "2022-1-17T17:30:31.098Z",
-      "important": true
+      "important": false
     },
     {
       "id": 2,
@@ -45,7 +45,7 @@
     {
       "content": "a new note...",
       "date": "2022-06-13T12:37:52.175Z",
-      "important": true,
+      "important": false,
       "id": 8
     },
     {
@@ -53,6 +53,18 @@
       "date": "2022-06-13T12:38:01.753Z",
       "important": true,
       "id": 9
+    },
+    {
+      "content": "a new note...",
+      "date": "2022-06-13T13:18:12.207Z",
+      "important": true,
+      "id": 10
+    },
+    {
+      "content": "a new note...",
+      "date": "2022-06-13T13:19:12.619Z",
+      "important": false,
+      "id": 11
     }
   ]
 }
