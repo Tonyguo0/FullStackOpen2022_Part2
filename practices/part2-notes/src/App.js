@@ -12,7 +12,7 @@ const App = () => {
       console.log("promise fulfilled");
       setNotes(response.data);
     });
-  }
+  };
   useEffect(hooks, []);
   console.log("render", notes.length, "notes");
 
@@ -24,8 +24,13 @@ const App = () => {
       important: Math.random() < 0.5,
       id: notes.length + 1,
     };
-    setNotes(notes.concat(noteObject));
-    setNewNote("");
+    axios.post("http://localhost:3001/notes", noteObject).then((response) => {
+      setNotes(notes.concat(response.data));
+      setNewNote("");
+      console.log(response);
+    });
+    // setNotes(notes.concat(noteObject));
+    // setNewNote("");
   };
 
   const handleNoteChange = (event) => {
@@ -37,7 +42,7 @@ const App = () => {
     ? notes
     : notes.filter((note) => note.important === true);
 
-  return ( 
+  return (
     <div>
       <h1>Notes</h1>
       <div>
