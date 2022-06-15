@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 // http://openweathermap.org/img/wn/XXX@2x.png   XXX = CODE FOR WEATHER
-
+ 
 // https://api.openweathermap.org/data/2.5/weather?q={city name},{country code}&appid={API key}
 const api_key = process.env.REACT_APP_API_KEY;
-  
+   
 const Countries = ({ countries }) => {
   const [countrynametoshow, setCountryNameToShow] = useState("");
   const [showcountry, setShowCountry] = useState(false);
