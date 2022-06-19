@@ -19,52 +19,10 @@
       "important": true
     },
     {
-      "content": "a new note...",
-      "date": "2022-06-13T12:29:28.864Z",
-      "important": false,
+      "content": "yeee",
+      "date": "2022-06-19T12:49:33.731Z",
+      "important": true,
       "id": 4
-    },
-    {
-      "content": "hello",
-      "date": "2022-06-13T12:29:57.925Z",
-      "important": false,
-      "id": 5
-    },
-    {
-      "content": "holy it works",
-      "date": "2022-06-13T12:30:11.997Z",
-      "important": false,
-      "id": 6
-    },
-    {
-      "content": "a new note...",
-      "date": "2022-06-13T12:35:59.205Z",
-      "important": true,
-      "id": 7
-    },
-    {
-      "content": "a new note...",
-      "date": "2022-06-13T12:37:52.175Z",
-      "important": false,
-      "id": 8
-    },
-    {
-      "content": "a new note...",
-      "date": "2022-06-13T12:38:01.753Z",
-      "important": true,
-      "id": 9
-    },
-    {
-      "content": "a new note...",
-      "date": "2022-06-13T13:18:12.207Z",
-      "important": true,
-      "id": 10
-    },
-    {
-      "content": "a new note...",
-      "date": "2022-06-13T13:19:12.619Z",
-      "important": false,
-      "id": 11
     }
   ]
 }
