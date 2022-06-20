@@ -15,7 +15,7 @@
 - [x] exercise 2.12
 - [x] exercise 2.13
 - [x] exercise 2.14
-- [ ] exercise 2.15
+- [x] exercise 2.15
 - [ ] exercise 2.16
 - [ ] exercise 2.17
 - [ ] exercise 2.18

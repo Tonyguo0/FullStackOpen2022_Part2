@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-
-
-
 const Filter = ({ newFilter, Change }) => {
   return (
     <div>
@@ -56,13 +53,11 @@ const App = () => {
   const [newPN, setPN] = useState("");
   const [newFilter, setNewFilter] = useState("");
 
-
-  useEffect(() =>{
-    axios.get('http://localhost:3001/persons').then(response =>{
-      setPersons(response.data)
-      
-    })
-  },[])
+  useEffect(() => {
+    axios.get("http://localhost:3001/persons").then((response) => {
+      setPersons(response.data);
+    });
+  }, []);
 
   const handleAddButton = (event) => {
     event.preventDefault();
@@ -72,10 +67,12 @@ const App = () => {
       return;
     }
     const tempObj = { name: newName, number: newPN };
-    setPersons(persons.concat(tempObj));
-    setNewName("");
-    setPN("");
-    setNewFilter("");
+    axios.post("http://localhost:3001/persons", tempObj).then((response) => {
+      setPersons(persons.concat(response.data));
+      setNewName("");
+      setPN("");
+      setNewFilter("");
+    });
   };
 
   const handleOnChangeName = (event) => {
