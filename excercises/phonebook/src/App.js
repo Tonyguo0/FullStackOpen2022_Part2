@@ -28,6 +28,10 @@ const PersonForm = ({ Name, PN, ChangeName, ChangePN, handleButton }) => {
 };
 
 const Persons = ({ Filter, List }) => {
+
+
+
+
   const filteredpersons =
     Filter === ""
       ? List
@@ -39,7 +43,7 @@ const Persons = ({ Filter, List }) => {
       {filteredpersons.map((person) => {
         return (
           <div key={person.name}>
-            {person.name} {person.number}
+            {person.name} {person.number} <button >delete</button>
           </div>
         );
       })}

@@ -11,6 +11,8 @@ const addPerson = (newPerson) => {
   return request.then((response) => response.data);
 };
 
+// const deletePerson = ()
+
 const exportObjects = { getAllPeople, addPerson };
 
 export default exportObjects;
