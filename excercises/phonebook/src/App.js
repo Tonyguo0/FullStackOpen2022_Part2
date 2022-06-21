@@ -90,18 +90,48 @@ const App = () => {
   const handleAddButton = (event) => {
     event.preventDefault();
     // compare person's name existing in the array with newName if newName already in persons array send out alert ${newName} is already added to phone book
-    if (persons.find((person) => person.name === newName)) {
-      alert(`${newName} is already added to phone book`);
-      return;
-    }
-    const tempPerson = { name: newName, number: newPN };
+    let currentPerson = persons.find((person) => person.name === newName);
+    if (currentPerson) {
+      if (
+        !window.confirm(
+          `${newName} is already added to phonebook, replace the old number with a new one?`
+        )
+      ) {
+        return;
+      } else {
+        const changedPerson = { ...currentPerson, number: newPN };
+        console.log("changedPerson", changedPerson);
+        personsService
+          .updatePerson(currentPerson.id, changedPerson)
+          .then((thisperson) => {
+            const newPhoneBook = persons.map((person) =>
+              thisperson.id === person.id ? thisperson : person
+            );
+            setPersons(newPhoneBook);
+            setNewName("");
+            setPN("");
+            setNewFilter("");
+          })
+          .catch((error) => {
+            alert(
+              `the note '${currentPerson.name} phone number was already updated in server
+            \n error message is: ${error.message}
+            `
+            );
+          });
+      }
 
-    personsService.addPerson(tempPerson).then((initialPerson) => {
-      setPersons(persons.concat(initialPerson));
-      setNewName("");
-      setPN("");
-      setNewFilter("");
-    });
+      return;
+    } else {
+      const tempPerson = { name: newName, number: newPN };
+
+      personsService.addPerson(tempPerson).then((initialPerson) => {
+        setPersons(persons.concat(initialPerson));
+        setNewName("");
+        setPN("");
+        setNewFilter("");
+      });
+    }
   };
   useEffect(() => {
     console.log(persons);

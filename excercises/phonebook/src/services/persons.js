@@ -2,12 +2,12 @@ import axios from "axios";
 const baseUrl = "http://localhost:3001/persons";
 
 const getAllPeople = () => {
-  let request = axios.get(baseUrl);
+  const request = axios.get(baseUrl);
   return request.then((response) => response.data);
 };
 
 const addPerson = (newPerson) => {
-  let request = axios.post(baseUrl, newPerson);
+  const request = axios.post(baseUrl, newPerson);
   return request.then((response) => response.data);
 };
 
@@ -16,6 +16,11 @@ const deletePerson = (id) => {
   // return request.then((response) => response.data);
 };
 
-const exportObjects = { getAllPeople, addPerson,deletePerson };
+const updatePerson = (id, newPerson) => {
+  const request = axios.put(`${baseUrl}/${id}`, newPerson);
+  return request.then((response) => response.data);
+};
+
+const exportObjects = { getAllPeople, addPerson, deletePerson, updatePerson };
 
 export default exportObjects;
