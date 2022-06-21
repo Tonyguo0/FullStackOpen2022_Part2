@@ -27,11 +27,28 @@ const PersonForm = ({ Name, PN, ChangeName, ChangePN, handleButton }) => {
   );
 };
 
-const Persons = ({ Filter, List }) => {
-
-
-
-
+const Persons = ({ Filter, List, setList }) => {
+  const handleButton = (person) => {
+    if (!window.confirm(`Delete ${person.name}?`)) {
+      return;
+    }
+    personsService
+      .deletePerson(person.id)
+      .then(() => {
+        setList(
+          List.filter((thisperson) => {
+            return thisperson.id !== person.id;
+          })
+        );
+      })
+      .catch((error) => {
+        alert(
+          `the note '${person.name} was already deleted from server
+        \n error message is: ${error.message}
+        `
+        );
+      });
+  };
   const filteredpersons =
     Filter === ""
       ? List
@@ -43,7 +60,14 @@ const Persons = ({ Filter, List }) => {
       {filteredpersons.map((person) => {
         return (
           <div key={person.name}>
-            {person.name} {person.number} <button >delete</button>
+            {person.name} {person.number}{" "}
+            <button
+              onClick={() => {
+                handleButton(person);
+              }}
+            >
+              delete
+            </button>
           </div>
         );
       })}
@@ -79,10 +103,9 @@ const App = () => {
       setNewFilter("");
     });
   };
-  useEffect(()=>{
-    console.log(persons)
-
-  },[persons])
+  useEffect(() => {
+    console.log(persons);
+  }, [persons]);
 
   const handleOnChangeName = (event) => {
     setNewName(event.target.value);
@@ -110,7 +133,7 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      <Persons Filter={newFilter} List={persons} />
+      <Persons Filter={newFilter} List={persons} setList={setPersons} />
     </div>
   );
 };
