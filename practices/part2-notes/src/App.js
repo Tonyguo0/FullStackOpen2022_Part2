@@ -2,6 +2,24 @@ import Note from "./components/Note";
 import noteService from "./services/notes";
 import { useState, useEffect } from "react";
 
+const Footer = () => {
+  const footerStyle = {
+    color: "green",
+    fontStyle: "italic",
+    fontSize: 16,
+  };
+
+  return (
+    <div style={footerStyle}>
+      <br />
+      <em>
+        {" "}
+        Note app, Department of Computer Science, University of Helsinki 2022
+      </em>
+    </div>
+  );
+};
+
 const Notification = ({ message }) => {
   if (message === null) {
     return null;
@@ -108,6 +126,8 @@ const App = () => {
         <input value={newNote} onChange={handleNoteChange} />
         <button type="submit"> save</button>
       </form>
+
+      <Footer />
     </div>
   );
 };
