@@ -15,7 +15,7 @@ const App = () => {
   const [newNote, setNewNote] = useState("a new note...");
   const [showAll, setShowAll] = useState(true);
   const [notestoshow, setNotesToShow] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("some error happened...");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   // get all notes from url with useEffect hook
   const hooks = () => {
