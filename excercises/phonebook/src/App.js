@@ -75,7 +75,7 @@ const Persons = ({ Filter, List, setList }) => {
   );
 };
 
-const Notification = ({ newNotification }) => {
+const NormalNotification = ({ newNotification }) => {
   if (newNotification === null) {
     return null;
   }
@@ -92,12 +92,32 @@ const Notification = ({ newNotification }) => {
 
   return <div style={notificationstyle}>{newNotification}</div>;
 };
+
+const WarningNotification = ({ newNotification }) => {
+  if (newNotification === null) {
+    return null;
+  }
+
+  const notificationstyle = {
+    color: "red",
+    background: "lightgrey",
+    fontSize: "20px",
+    borderStyle: "solid",
+    borderRadius: "5px",
+    padding: "10px",
+    marginBottom: "10px",
+  };
+
+  return <div style={notificationstyle}>{newNotification}</div>;
+};
+
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newPN, setPN] = useState("");
   const [newFilter, setNewFilter] = useState("");
   const [newNotification, setNewNotification] = useState(null);
+  const [newWNotification, setNewWNotification] = useState(null);
 
   useEffect(() => {
     personsService.getAllPeople().then((initialPeople) => {
@@ -137,11 +157,11 @@ const App = () => {
             setNewFilter("");
           })
           .catch((error) => {
-            alert(
-              `the note '${currentPerson.name} phone number was already updated in server
-            \n error message is: ${error.message}
-            `
-            );
+
+            setNewWNotification(`Information of ${currentPerson.name} has already been removed from server`)
+            setTimeout(() => {
+              setNewWNotification(null);
+            }, 5000);
           });
       }
 
@@ -179,7 +199,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification newNotification={newNotification} />
+      <NormalNotification newNotification={newNotification}/>
+      <WarningNotification newNotification={newWNotification}/>
 
       <Filter newFilter={newFilter} Change={handleOnChangeFilter} />
       <h2>add a new</h2>
