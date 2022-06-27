@@ -181,6 +181,7 @@ const App = () => {
       });
     }
   };
+  
   useEffect(() => {
     console.log(persons);
   }, [persons]);

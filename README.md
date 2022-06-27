@@ -20,7 +20,7 @@
 - [x] exercise 2.17
 - [x] exercise 2.18
 - [x] exercise 2.19
-- [ ] exercise 2.20
+- [x] exercise 2.20
 
 ## Set-up
 # .env
