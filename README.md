@@ -19,7 +19,7 @@
 - [x] exercise 2.16
 - [x] exercise 2.17
 - [x] exercise 2.18
-- [ ] exercise 2.19
+- [x] exercise 2.19
 - [ ] exercise 2.20
 
 ## Set-up

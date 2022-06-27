@@ -1,3 +1,4 @@
+// cd FullStackOpen2022_Part2/practices/part2-notes
 import Note from "./components/Note";
 import noteService from "./services/notes";
 import { useState, useEffect } from "react";

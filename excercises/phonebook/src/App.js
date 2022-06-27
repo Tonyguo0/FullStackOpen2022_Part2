@@ -75,11 +75,29 @@ const Persons = ({ Filter, List, setList }) => {
   );
 };
 
+const Notification = ({ newNotification }) => {
+  if (newNotification === null) {
+    return null;
+  }
+
+  const notificationstyle = {
+    color: "green",
+    background: "lightgrey",
+    fontSize: "20px",
+    borderStyle: "solid",
+    borderRadius: "5px",
+    padding: "10px",
+    marginBottom: "10px",
+  };
+
+  return <div style={notificationstyle}>{newNotification}</div>;
+};
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newPN, setPN] = useState("");
   const [newFilter, setNewFilter] = useState("");
+  const [newNotification, setNewNotification] = useState(null);
 
   useEffect(() => {
     personsService.getAllPeople().then((initialPeople) => {
@@ -107,6 +125,12 @@ const App = () => {
             const newPhoneBook = persons.map((person) =>
               thisperson.id === person.id ? thisperson : person
             );
+            setNewNotification(
+              `Changed ${changedPerson.name}'s number to ${changedPerson.number}`
+            );
+            setTimeout(() => {
+              setNewNotification(null);
+            }, 5000);
             setPersons(newPhoneBook);
             setNewName("");
             setPN("");
@@ -127,6 +151,10 @@ const App = () => {
 
       personsService.addPerson(tempPerson).then((initialPerson) => {
         setPersons(persons.concat(initialPerson));
+        setNewNotification(`Added ${newName}`);
+        setTimeout(() => {
+          setNewNotification(null);
+        }, 5000);
         setNewName("");
         setPN("");
         setNewFilter("");
@@ -151,6 +179,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification newNotification={newNotification} />
+
       <Filter newFilter={newFilter} Change={handleOnChangeFilter} />
       <h2>add a new</h2>
 
