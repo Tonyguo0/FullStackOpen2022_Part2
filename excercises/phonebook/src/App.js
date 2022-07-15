@@ -56,10 +56,10 @@ const Persons = ({ Filter, List, setList }) => {
           person.name.toLowerCase().includes(Filter.toLowerCase())
         );
   return (
-    <div>
+    <div >
       {filteredpersons.map((person) => {
         return (
-          <div key={person.name}>
+          <div key={person.id}>
             {person.name} {person.number}{" "}
             <button
               onClick={() => {

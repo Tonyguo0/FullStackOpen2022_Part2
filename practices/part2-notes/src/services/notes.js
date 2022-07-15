@@ -1,5 +1,6 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/notes";
+// const baseUrl = "http://localhost:3001/notes";
+const baseUrl = "https://elegant-moliere-57462.herokuapp.com/api/notes";
 
 const getAll = () => {
   const request = axios.get(baseUrl);
@@ -11,6 +12,7 @@ const getAll = () => {
   }
   return request.then((response) => response.data.concat(nonExisting));
 };
+
 
 const create = (newObject) => {
   const request = axios.post(baseUrl, newObject);
