@@ -1,6 +1,6 @@
 # FullStackOpen2022_Part2
 
-## Excercises
+## Exercises
 - [x] exercise 2.1
 - [x] exercise 2.2
 - [x] exercise 2.3
