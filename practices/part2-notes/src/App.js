@@ -39,13 +39,13 @@ const App = () => {
 
   // get all notes from url with useEffect hook
   const hooks = () => {
-    console.log("effect");
+    // console.log("effect");
     noteService.getAll().then((initialNotes) => {
       setNotes(initialNotes);
     });
   };
   useEffect(hooks, []);
-  console.log("render", notes.length, "notes");
+  // console.log("render", notes.length, "notes");
 
   // when addnote is clicked
   const addNote = (event) => {
@@ -82,17 +82,19 @@ const App = () => {
 
   const toggleImportanceOf = (id) => {
     const note = notes.find((n) => n.id === id);
-    console.log(note);
+    // console.log(note);
     const changedNote = { ...note, important: !note.important };
-    console.log(changedNote);
+    // console.log(changedNote);
     // when we use put, it already sets the note into the notes url, so when we set the state of notes
     // if it equals to id then it should be the response data/returnedNote else set it to what was in notes before
     noteService
       .update(id, changedNote)
       .then((returnedNote) => {
+        console.log(returnedNote);
         setNotes(notes.map((note) => (note.id === id ? returnedNote : note)));
       })
       .catch((error) => {
+        console.log(`inside the error`)
         setErrorMessage(
           `Note '${note.content}' was already removed from server`
         );
@@ -101,7 +103,7 @@ const App = () => {
         }, 5000);
         setNotes(notes.filter((n) => n.id !== id));
       });
-    console.log(`Importance of ${id} needs to be toggled`);
+    // console.log(`Importance of ${id} needs to be toggled`);
   };
 
   return (
