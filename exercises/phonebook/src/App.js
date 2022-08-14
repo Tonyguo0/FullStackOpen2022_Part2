@@ -56,7 +56,7 @@ const Persons = ({ Filter, List, setList }) => {
           person.name.toLowerCase().includes(Filter.toLowerCase())
         );
   return (
-    <div >
+    <div>
       {filteredpersons.map((person) => {
         return (
           <div key={person.id}>
@@ -142,23 +142,26 @@ const App = () => {
         personsService
           .updatePerson(currentPerson.id, changedPerson)
           .then((thisperson) => {
-            const newPhoneBook = persons.map((person) =>
-              thisperson.id === person.id ? thisperson : person
-            );
+            const newPhoneBook = persons.map((person) => {
+              // console.log("changedPerson is:", changedPerson);
+              return changedPerson.id === person.id ? changedPerson : person;
+            });
+            // console.log(newPhoneBook);
             setNewNotification(
               `Changed ${changedPerson.name}'s number to ${changedPerson.number}`
             );
-            setTimeout(() => {
-              setNewNotification(null);
-            }, 5000);
             setPersons(newPhoneBook);
             setNewName("");
             setPN("");
             setNewFilter("");
+            setTimeout(() => {
+              setNewNotification(null);
+            }, 5000);
           })
           .catch((error) => {
-
-            setNewWNotification(`Information of ${currentPerson.name} has already been removed from server`)
+            setNewWNotification(
+              `Information of ${currentPerson.name} has already been removed from server`
+            );
             setTimeout(() => {
               setNewWNotification(null);
             }, 5000);
@@ -181,10 +184,10 @@ const App = () => {
       });
     }
   };
-  
-  useEffect(() => {
-    console.log(persons);
-  }, [persons]);
+
+  // useEffect(() => {
+  //   console.log(persons);
+  // }, [persons]);
 
   const handleOnChangeName = (event) => {
     setNewName(event.target.value);
@@ -200,8 +203,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <NormalNotification newNotification={newNotification}/>
-      <WarningNotification newNotification={newWNotification}/>
+      <NormalNotification newNotification={newNotification} />
+      <WarningNotification newNotification={newWNotification} />
 
       <Filter newFilter={newFilter} Change={handleOnChangeFilter} />
       <h2>add a new</h2>
