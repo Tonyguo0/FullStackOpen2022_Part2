@@ -159,9 +159,7 @@ const App = () => {
             }, 5000);
           })
           .catch((error) => {
-            setNewWNotification(
-              `Information of ${currentPerson.name} has already been removed from server`
-            );
+            setNewWNotification(error.response.data.error);
             setTimeout(() => {
               setNewWNotification(null);
             }, 5000);
@@ -172,16 +170,25 @@ const App = () => {
     } else {
       const tempPerson = { name: newName, number: newPN };
 
-      personsService.addPerson(tempPerson).then((initialPerson) => {
-        setPersons(persons.concat(initialPerson));
-        setNewNotification(`Added ${newName}`);
-        setTimeout(() => {
-          setNewNotification(null);
-        }, 5000);
-        setNewName("");
-        setPN("");
-        setNewFilter("");
-      });
+      personsService
+        .addPerson(tempPerson)
+        .then((initialPerson) => {
+          setPersons(persons.concat(initialPerson));
+          setNewNotification(`Added ${newName}`);
+          setTimeout(() => {
+            setNewNotification(null);
+          }, 5000);
+          setNewName("");
+          setPN("");
+          setNewFilter("");
+        })
+        .catch((error) => {
+          setNewWNotification(error.response.data.error);
+          console.log(error.response.data.error);
+          setTimeout(() => {
+            setNewWNotification(null);
+          }, 5000);
+        });
     }
   };
 
